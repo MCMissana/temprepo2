@@ -34,12 +34,6 @@ public class ThreadTest extends Thread{
         }
     }
     
-    /**
-     * Professor does not want this to be used to manage threads
-     * synchronized blocks other threads until the method fully executes,
-     * otherwise when multiple threads are running values this method may 
-     * use could be modified by another thread
-     */
     public synchronized void interrupt(){
         System.out.println("ZA WARRUDO!!!");
     }
