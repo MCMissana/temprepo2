@@ -11,14 +11,27 @@
 public class Main {
     
     ThreadTest t;
-    RunnableTest r;
-    
-    private int limit = 100000000; // 100,000,000
+    //RunnableTest r;
     
     public Main(){
-        t = new ThreadTest();
-        t.start(); // starts thread which runs parallel to other threads
         
+        for(int i=0; i < 100; i++) {
+            t = new ThreadTest(i);
+            t.start(); // starts thread which runs parallel to other threads
+            
+        }
+        System.out.println(t.calc());
+        double esta =0;
+        doAction();
+        esta += t.calc();    
+        System.out.println(esta);
+    }
+    private void doAction() {
+        calculate( (int)(Math.random() * 4 + 36) );
+    }
+    private static long calculate(int n) {
+        if (n <= 1) return n;
+        else return calculate(n-1) + calculate(n-2);
     }
     
     
@@ -27,7 +40,7 @@ public class Main {
         // do not do this, it causes only that single thread to run
         // r.run();
         // starts thread which runs parallel to other threads using run method
-        (new Thread(new RunnableTest())).start();
+       // (new Thread(new RunnableTest())).start();
     }
     
 }

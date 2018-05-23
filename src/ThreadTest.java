@@ -12,10 +12,12 @@
  * @author michaelmissana
  */
 public class ThreadTest extends Thread{
-    
+    public int i;
+    public double aprox;
     // not needed but can be used
-    public ThreadTest(){
+    public ThreadTest(int number){
         // nothing
+        i  = number;
     }
 
     /**
@@ -23,18 +25,21 @@ public class ThreadTest extends Thread{
      * must be implemented as part of Runnable.
      */
     @Override
-    public void run(){
-        int i = 0;
-        while(true){
-            System.out.println("Hello");
-            if(i%3 == 1){
-                this.interrupt();
-            }
-            i++;
-        }
+    public void run(){ 
+        this.interrupt();
     }
     
+    
+
+    
     public synchronized void interrupt(){
-        System.out.println("ZA WARRUDO!!!");
+        //PatternThread ptn = new PatternThread();
+        //double aprox = ptn.number(i, (Math.pow(-1,i))/(2*i+1)); 
+        double aprox = (Math.pow(-1,i))/(2*i+1);
+        System.out.println(aprox);
+    }
+    
+    public double calc() {
+        return aprox;
     }
 }
