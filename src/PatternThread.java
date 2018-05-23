@@ -5,23 +5,39 @@
  */
 
 /**
- *
- * @author E
+ * This class extends PatternThread to be an object which can run as its own thread,&nbsp
+ * however, using extends prevents the object from subclassing another object&nbsp
+ * restricting its usage.
+ * 
+ * @author michaelmissana
  */
-public class PatternThread implements Runnable {
-
-    public PatternThread() {
-
+public class PatternThread extends Thread{
+    public int threadNum;
+    public double aprox;
+    // not needed but can be used
+    public PatternThread(int termValue){
+        threadNum = termValue;
     }
 
-    // method executed when (new Thread(this)).start() is executed
-    public void run() {
-        // code to be executed by thread
-        
-        // thread ends
+    /**
+     * Main method of thread which starts when this.start() is called,
+     * must be implemented as part of Runnable.
+     */
+    public void run(){ 
+        this.interrupt();
     }
     
-    public double number (int threadNum, double total) {
-        return total;
+    
+
+    
+    public synchronized void interrupt(){
+        //PatternThread ptn = new PatternThread();
+        //double aprox = ptn.number(i, (Math.pow(-1,i))/(2*i+1)); 
+        aprox = (Math.pow(-1,threadNum))/(2*threadNum+1);
+        System.out.println(aprox);
+    }
+    
+    public double calc() {
+        return aprox;
     }
 }
