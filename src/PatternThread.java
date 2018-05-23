@@ -15,10 +15,10 @@ public class PatternThread extends Thread {
 
     public int threadNum;
     public double aprox;
-    public boolean interested;
+    public boolean interested; // locally stored check for locking other threads, may not use
 
-    public PatternThread(int termValue) {
-        threadNum = termValue;
+    public PatternThread(int termNum) {
+        threadNum = termNum;
     }
 
     /**
@@ -26,10 +26,13 @@ public class PatternThread extends Thread {
      * implemented as part of Runnable.
      */
     public void run() {
-        
-        this.term();
+        while(aprox == 0){
+            // wait until term() is called and calculated
+        }
     }
 
+    // this method calculates a term in the Gregory-Leibniz Series
+    // only executed when it is interested and allowed to execute
     public double term() {
         return aprox = (Math.pow(-1, threadNum)) / (2 * threadNum + 1);
     }

@@ -15,6 +15,10 @@ public class Assign1 {
     public Assign1() {
     }
 
+    private void enter_region(int termNum) {
+
+    }
+
     private void doAction() {
         calculate((int) (Math.random() * 4 + 36));
     }
@@ -29,14 +33,13 @@ public class Assign1 {
 
     public static void main(String args[]) {
         Assign1 c = new Assign1();
-
-        PatternThread[] threadArr = new PatternThread[c.limit];
-        boolean[] locks = new boolean[c.limit];
-        double[] terms = new double[c.limit];
+        PatternThread[] threadArr = new PatternThread[limit];
+        boolean[] locks = new boolean[limit];
+        double[] terms = new double[limit];
         double esta = 0; // total
 
         // populate terms with 0 and create each thread without starting them
-        for(int i = 0; i < c.limit; i++){
+        for (int i = 0; i < c.limit; i++) {
             threadArr[i] = new PatternThread(i);
             terms[i] = 0.0;
         }
@@ -44,12 +47,18 @@ public class Assign1 {
         for (int i = 0; i < c.limit; i++) {
             threadArr[i].start(); // starts thread which runs parallel to other threads
 
-            //c.doAction();
-            //System.out.println(threadArr[i].calc());
-            
-            esta += threadArr[i].calc();
-            
-            //System.out.println("Estamate: " + esta);
+            c.doAction();
+            // lock thread(s)
+            c.doAction();
+
+            // critical region  
+            terms[i] = threadArr[i].term();
+            esta += terms[i];
+            // critical region end
+
+            c.doAction();
+            // unlock thread(s)
+            c.doAction();
         }
 
         System.out.println("Estamate: " + esta);
