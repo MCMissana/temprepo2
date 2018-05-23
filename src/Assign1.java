@@ -11,7 +11,6 @@
 public class Assign1 {
 
     private static int limit = 100000000; // 100,000,000
-    //RunnableTest r;
 
     public Assign1() {
     }
@@ -31,18 +30,19 @@ public class Assign1 {
     public static void main(String args[]) {
         Assign1 c = new Assign1();
 
-        PatternThread[] threadArr;
-        PatternThread t;
+        PatternThread[] threadArr = new PatternThread[c.limit];
+        PatternThread t; // individual thread, does nothing
 
         double esta = 0;
         for (int i = 0; i < 100; i++) {
-            t = new PatternThread(i);
-            t.start(); // starts thread which runs parallel to other threads
+            threadArr[i] = new PatternThread(i);
+            threadArr[i].start(); // starts thread which runs parallel to other threads
 
             c.doAction();
-            System.out.println(t.calc());
-            esta += t.calc();
+            System.out.println(threadArr[i].calc());
+            esta += threadArr[i].calc();
         }
+
         System.out.println("Estamate: " + esta);
     }
 
