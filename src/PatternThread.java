@@ -29,6 +29,7 @@ public class PatternThread extends Thread {
         while(aprox == 0){
             // wait until term() is called and calculated
         }
+        Assign1.
     }
 
     // this method calculates a term in the Gregory-Leibniz Series
