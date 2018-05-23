@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
+import java.lang.Math;
 /**
  *
  * @author michaelmissana
@@ -39,11 +39,12 @@ public class Assign1 {
             threadArr[i].start(); // starts thread which runs parallel to other threads
 
             c.doAction();
-            System.out.println(threadArr[i].calc());
+            //System.out.println(threadArr[i].calc());
             esta += threadArr[i].calc();
         }
 
         System.out.println("Estamate: " + esta);
+        System.out.println("Actual:   " + Math.PI / 4);
     }
 
 }
