@@ -36,4 +36,16 @@ public class PatternThread extends Thread {
     public double term() {
         return aprox = (Math.pow(-1, threadNum)) / (2 * threadNum + 1);
     }
+    
+    public void doAction() {
+        calculate((int) (Math.random() * 4 + 36));
+    }
+
+    private static long calculate(int n) {
+        if (n <= 1) {
+            return n;
+        } else {
+            return calculate(n - 1) + calculate(n - 2);
+        }
+    }
 }
