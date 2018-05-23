@@ -10,18 +10,21 @@
  */
 public class PatternThread implements Runnable {
 
-    public PatternThread() {
-
+    private int threadNum;
+    
+    public PatternThread(int termValue) {
+        threadNum = termValue;
     }
 
     // method executed when (new Thread(this)).start() is executed
+    // this would be the class name elsewhere
     public void run() {
         // code to be executed by thread
         
         // thread ends
     }
 
-    public double term(int threadNum) {
+    private double term() {
         return (Math.pow(-1, threadNum)) / (2 * threadNum + 1);
     }
 

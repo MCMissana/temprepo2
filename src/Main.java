@@ -13,6 +13,8 @@ public class Main {
     ThreadTest t;
     RunnableTest r;
     
+    private int limit = 100000000; // 100,000,000
+    
     public Main(){
         t = new ThreadTest();
         t.start(); // starts thread which runs parallel to other threads
