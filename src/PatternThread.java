@@ -15,6 +15,7 @@ public class PatternThread extends Thread {
 
     public int threadNum;
     public double aprox;
+    public boolean interested;
 
     public PatternThread(int termValue) {
         threadNum = termValue;
@@ -25,14 +26,11 @@ public class PatternThread extends Thread {
      * implemented as part of Runnable.
      */
     public void run() {
+        
         this.term();
     }
 
-    public void term() {
-        aprox = (Math.pow(-1, threadNum)) / (2 * threadNum + 1);
-    }
-
-    public synchronized double calc() {
-        return aprox;
+    public double term() {
+        return aprox = (Math.pow(-1, threadNum)) / (2 * threadNum + 1);
     }
 }

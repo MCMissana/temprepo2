@@ -31,16 +31,25 @@ public class Assign1 {
         Assign1 c = new Assign1();
 
         PatternThread[] threadArr = new PatternThread[c.limit];
-        PatternThread t; // individual thread, does nothing
+        boolean[] locks = new boolean[c.limit];
+        double[] terms = new double[c.limit];
+        double esta = 0; // total
 
-        double esta = 0;
-        for (int i = 0; i < 100; i++) {
+        // populate terms with 0 and create each thread without starting them
+        for(int i = 0; i < c.limit; i++){
             threadArr[i] = new PatternThread(i);
+            terms[i] = 0.0;
+        }
+        // start each thread
+        for (int i = 0; i < c.limit; i++) {
             threadArr[i].start(); // starts thread which runs parallel to other threads
 
-            c.doAction();
-            System.out.println(threadArr[i].calc());
+            //c.doAction();
+            //System.out.println(threadArr[i].calc());
+            
             esta += threadArr[i].calc();
+            
+            //System.out.println("Estamate: " + esta);
         }
 
         System.out.println("Estamate: " + esta);
