@@ -13,6 +13,8 @@ public class Assign1 {
     private static int limit = 100000000; // 100,000,000
     private static boolean[] locks = new boolean[limit];
     int turn;
+    public double esta = 0; // total
+    public PatternThread[] threadArr = new PatternThread[limit];
     
     public Assign1() {
     }
@@ -39,48 +41,53 @@ public class Assign1 {
 
     public static void main(String args[]) {
         Assign1 c = new Assign1();
-        PatternThread[] threadArr = new PatternThread[limit];
+      //  PatternThread[] threadArr = new PatternThread[limit];
         
         double[] terms = new double[limit];
-        double esta = 0; // total
+        
         
         
         // populate terms with 0 and create each thread without starting them
         for (int i = 0; i < c.limit; i++) {
-            threadArr[i] = new PatternThread(i);
+            
             terms[i] = 0.0;
             locks[i] = false;
         }
         // start each thread
         for (int i = 0; i < c.limit; i++) {
-            threadArr[i].start(); // starts thread which runs parallel to other threads
+            c.threadArr[i].start(); // starts thread which runs parallel to other threads
 
-            c.doAction();
+         //   c.doAction();
             c.enterCriticalRegion(i);
           //  c.doAction();
 
             // critical region  
-            terms[i] = threadArr[i].term();
-            esta += terms[i];
+         //   terms[i] = threadArr[i].term();
+         //   esta += terms[i];
             // critical region end
 
           //  c.doAction();
-            c.leaveCriticalregion(i);
+         //   c.leaveCriticalregion(i);
             // unlock thread(s)
-            c.doAction();
+         //   c.doAction();
         }
+        
+        
 
-        System.out.println("Estamate: " + esta);
+        System.out.println("Estamate: " + c.esta);
     }
     
     public void enterCriticalRegion(int threadNum) {
         int num;
+        doAction();
         num = 1 - threadNum;
         locks[threadNum]  = true;
         turn = threadNum;
         while ( turn == threadNum && locks[num] == true);
+        esta += threadArr[threadNum].term();
     }
     public void leaveCriticalregion(int threadNum) {
+        doAction();
         locks[threadNum] = false;
     }
 }
