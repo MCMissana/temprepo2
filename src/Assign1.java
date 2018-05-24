@@ -58,7 +58,7 @@ public class Assign1 {
     public void enterCriticalRegion(int threadNum) {
         int num;
         doAction();
-        num = threadNum - 1;
+        num = limit - threadNum - 1;
         if (num < 0) num = 0;
         locks[threadNum]  = true;
         turn = threadNum;
