@@ -26,8 +26,11 @@ public class PatternThread extends Thread {
      * implemented as part of Runnable.
      */
     public void run() {
-        while(aprox == 0){
-            // wait until term() is called and calculated
+        while (aprox == 0) {
+            doAction();
+            enter_region(threadNum); // includes lock
+            leave_region(threadNum); // includes unlock
+            doAction();
         }
     }
 
@@ -36,7 +39,7 @@ public class PatternThread extends Thread {
     public double term() {
         return aprox = (Math.pow(-1, threadNum)) / (2 * threadNum + 1);
     }
-    
+
     public void doAction() {
         calculate((int) (Math.random() * 4 + 36));
     }
@@ -47,5 +50,36 @@ public class PatternThread extends Thread {
         } else {
             return calculate(n - 1) + calculate(n - 2);
         }
+    }
+
+    private int prevThread() {
+        int prev;
+        prev = threadNum - 1;
+        if (threadNum == 0) {
+            prev = PatternManager.limit - 1;
+        }
+        return prev;
+    }
+
+    private synchronized void enter_region(int termNum) {
+        int prev = this.prevThread();
+        PatternManager temp = PatternManager.getInstance();
+        if (temp.isUnlock(prev)) {
+            temp.lock(prev);
+            temp.lock(termNum);
+            temp.add(this.term());
+            System.out.println(temp.result());
+        }
+        temp = null; // dispose later by java
+    }
+
+    private synchronized void leave_region(int termNum) {
+        int prev = this.prevThread();
+        PatternManager temp = PatternManager.getInstance();
+        if (aprox != 0 && temp.isLock(threadNum)) {
+            temp.unlock(threadNum);
+            temp.unlock(prev);
+        }
+        temp = null;
     }
 }

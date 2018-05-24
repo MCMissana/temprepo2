@@ -10,16 +10,49 @@
  */
 public class PatternManager {
 
+    public static final int limit = 1000;
+    private static PatternManager manager;
 
-    public PatternManager() {
+    boolean[] locks;
+    double[] terms;
+    double esta = 0; // total
 
+    private PatternManager() {
+        for (int i = 0; i < limit; i++) {
+            locks = new boolean[limit];
+            terms = new double[limit];
+        }
     }
 
-    private void enter_region(int termNum) {
-
+    public static PatternManager getInstance() {
+        if (manager == null) {
+            manager = new PatternManager();
+        }
+        return manager;
     }
 
-    private void leave_region(int termNum) {
-
+    public void add(double termVal) {
+        esta += termVal;
     }
+
+    public double result() {
+        return esta;
+    }
+
+    public void lock(int threadNum) {
+        locks[threadNum] = true;
+    }
+
+    public void unlock(int threadNum) {
+        locks[threadNum] = false;
+    }
+
+    public boolean isLock(int threadNum) {
+        return locks[threadNum] == true;
+    }
+
+    public boolean isUnlock(int threadNum) {
+        return locks[threadNum] == false;
+    }
+
 }
