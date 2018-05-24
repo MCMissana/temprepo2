@@ -16,10 +16,8 @@ public class Assign1 {
     public double esta = 0; // total
     public PatternThread[] threadArr = new PatternThread[limit];
     
-    //private void enter_region(int termNum) {
-//
-   // }
-
+    // methods
+    
     private void doAction() {
         calculate((int) (Math.random() * 4 + 36));
     }
@@ -49,25 +47,29 @@ public class Assign1 {
         // start each thread
         for (int i = 0; i < c.limit; i++) {
             c.threadArr[i].start(); // starts thread which runs parallel to other threads
+            
+            c.doAction();
             c.enterCriticalRegion(i);
+            
+            c.leaveCriticalRegion(i);
+            c.doAction();
         }
         System.out.println("Estamate: " + c.esta);
         System.exit(0);
     }
     
     public void enterCriticalRegion(int threadNum) {
-        int num;
-        doAction();
-        num = limit - threadNum - 1;
-        if (num < 0) num = 0;
+        int prev;
+        prev = threadNum - 1;
+        if(threadNum == 0){
+            prev = limit - 1 ;
+        }
         locks[threadNum]  = true;
         turn = threadNum;
-        while ( turn == threadNum && locks[num] == true);
+        while ( turn == threadNum && locks[prev] == true);
         esta += threadArr[threadNum].term();
-        leaveCriticalRegion(threadNum);
     }
     public void leaveCriticalRegion(int threadNum) {
-        doAction();
         locks[threadNum] = false;
     }
 }
