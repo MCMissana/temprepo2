@@ -59,6 +59,17 @@ public class Assign1 {
     }
     
     public void enterCriticalRegion(int threadNum) {
+
+        //do action method
+        while ( locks[threadNum] == true);
+        locks[threadNum] = true;
+        //does not account for pos 0
+        locks[threadNum - 1] = true;
+        esta += threadArr[threadNum].term();
+        //leave crtical region call
+
+
+        /*
         int prev;
         prev = threadNum - 1;
         if(threadNum == 0){
@@ -68,8 +79,11 @@ public class Assign1 {
         turn = threadNum;
         while ( turn == threadNum && locks[prev] == true);
         esta += threadArr[threadNum].term();
+        */
     }
     public void leaveCriticalRegion(int threadNum) {
         locks[threadNum] = false;
+        //does not account for pos 0
+        locks[threadNum - 1] = true;
     }
 }
