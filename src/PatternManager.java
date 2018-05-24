@@ -10,18 +10,20 @@
  */
 public class PatternManager {
 
-    public static final int limit = 1000;
+    public static final int limit = 100; // will be 100,000,000
     private static PatternManager manager;
 
     boolean[] locks;
     double[] terms;
     double esta = 0; // total
+    int count; // increments when thread adds term
 
     private PatternManager() {
         for (int i = 0; i < limit; i++) {
             locks = new boolean[limit];
             terms = new double[limit];
         }
+        count = 0;
     }
 
     public static PatternManager getInstance() {
@@ -33,12 +35,17 @@ public class PatternManager {
 
     public void add(double termVal) {
         esta += termVal;
+        count++;
     }
 
     public double result() {
         return esta;
     }
 
+    public int count(){
+        return count;
+    }
+    
     public void lock(int threadNum) {
         locks[threadNum] = true;
     }

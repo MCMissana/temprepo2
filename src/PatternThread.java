@@ -64,11 +64,13 @@ public class PatternThread extends Thread {
     private synchronized void enter_region(int termNum) {
         int prev = this.prevThread();
         PatternManager temp = PatternManager.getInstance();
-        if (temp.isUnlock(prev)) {
+        if (temp.isUnlock(prev) || temp.isUnlock(threadNum)) {
             temp.lock(prev);
             temp.lock(termNum);
             temp.add(this.term());
-            System.out.println(temp.result());
+            if(temp.count() >= temp.limit){
+                System.out.println(temp.result());
+            }
         }
         temp = null; // dispose later by java
     }
