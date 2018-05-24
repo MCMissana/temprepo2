@@ -1,15 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
 /**
  * This class extends PatternThread to be an object which can run as its own
  * thread,&nbsp however, using extends prevents the object from subclassing
  * another object&nbsp restricting its usage.
  *
- * @author michaelmissana
+ * @author Ethan Palser, Mathew Erwin, Michael Missana
  */
 public class PatternThread extends Thread {
 
