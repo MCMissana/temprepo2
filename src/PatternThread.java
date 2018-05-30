@@ -116,9 +116,20 @@ public class PatternThread extends Thread {
     private synchronized void leave_region(int termNum) {
         int prev = this.prevThread();
         PatternManager temp = PatternManager.getInstance();
-        if (aprox != 0 && temp.isLock(threadNum)) {
+        
+        /**
+         * aprox check is for if it has been modified and needs to unlock
+         * this solution works specifically for a single use thread that
+         * has its value changed once and is not reset
+         * It needs to be an OR as it can be unlocked by its next thread if both
+         * manage to enter the critical region due to a race condition for entering
+         */
+        // Change 2
+        if (aprox != 0) {
+            // aprox could be instead replaced with a boolean to check if modified
             temp.unlock(threadNum);
             temp.unlock(prev);
+            // deadlock may occur here if unlocked by next thread (opposite side of prev)
         }
         temp = null;
     }

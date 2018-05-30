@@ -20,10 +20,8 @@ public class PatternManager {
 
     private PatternManager() {
         // instantiate arrays and count
-        for (int i = 0; i < limit; i++) {
-            locks = new boolean[limit]; // default value is false
-            terms = new double[limit]; // default value is 0
-        }
+        locks = new boolean[limit]; // default value is false
+        terms = new double[limit]; // default value is 0
         count = 0;
     }
 
