@@ -26,12 +26,13 @@ public class Assign1 {
             while ((currentChar=fr.read()) != -1) {
                
                 //if new line character we have our limit parameter
-                if (currentChar == '10') {
+                if (currentChar == '\n') {
                     
                     //start all threads for for our given limit
-                    for (int i = 0; i < Integer.parseInt(parameter); i++) {
-                        threadArr[i].start(); // starts thread which runs parallel to other threads
-                    }
+                    //for (int i = 0; i < Integer.parseInt(parameter); i++) {
+                        //threadArr[i].start(); // starts thread which runs parallel to other threads
+                    //}
+                    system.out.print(parameter);
 
                     parameter = ""; //rest our parameter
                 }else{
