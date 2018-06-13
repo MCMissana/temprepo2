@@ -40,6 +40,11 @@ public class JavaApplication4 {
                 }
             }
             System.out.print(a);
+            
+            
+            PrintWriter writer = new PrintWriter("H:\\test.txt","UTF-8");
+            writer.println("hello");
+            writer.close() ;
 
         } catch (Exception exc) {
             // TODO: handle exception
