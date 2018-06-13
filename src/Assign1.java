@@ -29,10 +29,9 @@ public class Assign1 {
                 if (currentChar == '\n') {
                     
                     //start all threads for for our given limit
-                    //for (int i = 0; i < Integer.parseInt(parameter); i++) {
-                        //threadArr[i].start(); // starts thread which runs parallel to other threads
-                    //}
-                    System.out.print(Integer.parseInt(parameter));
+                    for (int i = 0; i < Integer.parseInt(parameter); i++) {
+                        threadArr[i].start(); // starts thread which runs parallel to other threads
+                    }
 
                     parameter = ""; //rest our parameter
                 }else{
