@@ -17,9 +17,30 @@ public class Assign1 {
         for (int i = 0; i < PatternManager.limit; i++) {
             threadArr[i] = new PatternThread(i);
         }
-        // start each thread
-        for (int i = 0; i < PatternManager.limit; i++) {
-            threadArr[i].start(); // starts thread which runs parallel to other threads
+
+        int currentChar; 
+        //PrintWriter writer = new PrintWriter("H:\\test.txt","UTF-8");
+        try {
+            String parameter = "";
+            FileReader fr = new FileReader("H:\\test.txt");
+            while ((currentChar=fr.read()) != -1) {
+               
+                //if new line character we have our limit parameter
+                if (currentChar == '10') {
+                    
+                    //start all threads for for our given limit
+                    for (int i = 0; i < Integer.parseInt(parameter); i++) {
+                        threadArr[i].start(); // starts thread which runs parallel to other threads
+                    }
+
+                    parameter = ""; //rest our parameter
+                }else{
+                    parameter += (char)currentChar;
+                }
+
+            }
+        } catch (Exception exc) {
+            // TODO: handle exception
         }
     }
 }
