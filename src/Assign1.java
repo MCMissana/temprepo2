@@ -22,7 +22,7 @@ public class Assign1 {
         //PrintWriter writer = new PrintWriter("H:\\test.txt","UTF-8");
         try {
             String parameter = "";
-            FileReader fr = new FileReader("H:\\test.txt");
+            FileReader fr = new FileReader("testdata.txt");
             while ((currentChar=fr.read()) != -1) {
                
                 //if new line character we have our limit parameter
@@ -32,7 +32,7 @@ public class Assign1 {
                     //for (int i = 0; i < Integer.parseInt(parameter); i++) {
                         //threadArr[i].start(); // starts thread which runs parallel to other threads
                     //}
-                    system.out.print(Integer.parseInt(parameter));
+                    System.out.print(Integer.parseInt(parameter));
 
                     parameter = ""; //rest our parameter
                 }else{
@@ -45,32 +45,3 @@ public class Assign1 {
         }
     }
 }
-
-public void starts() {
-        int i; 
-        //PrintWriter writer = new PrintWriter("H:\\test.txt","UTF-8");
-        try {
-            System.setOut(new PrintStream(new FileOutputStream("H:\\output.txt")));
-            String a = "";
-            FileReader fr = new FileReader("H:\\test.txt");
-            while ((i=fr.read()) != -1) {
-               // System.out.print((char)i);
-                a += (char)i;
-                if (i == '\n') {
-                    System.out.print(a);    
-                    a = "";
-                }
-            }
-            System.out.print(a);
-            
-            
-            PrintWriter writer = new PrintWriter("H:\\test.txt","UTF-8");
-            writer.println("hello");
-            writer.close() ;
-
-        } catch (Exception exc) {
-            // TODO: handle exception
-        }
-        
-        
-    }
