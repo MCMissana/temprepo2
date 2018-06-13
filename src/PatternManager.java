@@ -1,3 +1,4 @@
+import java.io.*;
 /**
  *
  * @author Ethan Palser, Mathew Erwin, Michael Missana
@@ -6,14 +7,18 @@ public class PatternManager {
 
     public static int limit;
     private static PatternManager manager;
-
+    
+    File result;
+    File log;
     boolean[] locks; // tracks lock state of threads to limit critical region access.
     double[] terms; // contains term of thread
     double esta = 0; // total
     int count; // increments when thread adds term
 
-    private PatternManager(int threadCount) {
+    private PatternManager(int threadCount, File file) {
         // instantiate arrays and count
+        result = new File("output.txt");
+        log = file;
         limit = threadCount;
         locks = new boolean[limit]; // default value is false
         terms = new double[limit]; // default value is 0
@@ -30,7 +35,7 @@ public class PatternManager {
      */
     public static PatternManager getInstance() {
         if (manager == null) {
-            // manager = new PatternManager(); // may not be allowed to work
+            // manager = new PatternManager(limit, file); // may not be allowed to work
         }
         return manager;
     }
@@ -39,15 +44,14 @@ public class PatternManager {
      * With the constructor private this will return this object and
      * will ensure that there will only ever be one instance of
      * PatternManager, if this class has not been instantiated it will
-     * be when this method is called.
+     * be when this method is called.&nbspThis has been altered to act
+     * like the constructor of the class without allowing multiple
+     * instances of the manager to exist.
      * 
      * @return This
      */
-    public static PatternManager getInstance(int threadCount) {
-        if (manager == null) {
-            // if already created for thread
-            manager = new PatternManager(threadCount);
-        }
+    public static PatternManager setInstance(int limit, File log){
+        manager = new PatternManager(limit, log);
         return manager;
     }
 
