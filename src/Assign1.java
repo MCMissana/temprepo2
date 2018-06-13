@@ -32,7 +32,7 @@ public class Assign1 {
                     //for (int i = 0; i < Integer.parseInt(parameter); i++) {
                         //threadArr[i].start(); // starts thread which runs parallel to other threads
                     //}
-                    system.out.print(parameter);
+                    system.out.print(Integer.parseInt(parameter));
 
                     parameter = ""; //rest our parameter
                 }else{
