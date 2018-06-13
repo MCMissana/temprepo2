@@ -118,8 +118,8 @@ public class PatternThread extends Thread {
          * It needs to be an OR as it can be unlocked by its next thread if both
          * manage to enter the critical region due to a race condition for entering
          */
-        // Change 2
-        if (aprox != 0) {
+        // Change 1
+        if (aprox != 0 || temp.isLock(threadNum)) {
             // aprox could be instead replaced with a boolean to check if modified
             temp.unlock(threadNum);
             temp.unlock(prev);

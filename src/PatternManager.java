@@ -4,7 +4,7 @@
  */
 public class PatternManager {
 
-    public static final int limit = 100; // will be 100,000,000
+    public static int limit;
     private static PatternManager manager;
 
     boolean[] locks; // tracks lock state of threads to limit critical region access.
@@ -12,8 +12,9 @@ public class PatternManager {
     double esta = 0; // total
     int count; // increments when thread adds term
 
-    private PatternManager() {
+    private PatternManager(int threadCount) {
         // instantiate arrays and count
+        limit = threadCount;
         locks = new boolean[limit]; // default value is false
         terms = new double[limit]; // default value is 0
         count = 0;
@@ -29,7 +30,23 @@ public class PatternManager {
      */
     public static PatternManager getInstance() {
         if (manager == null) {
-            manager = new PatternManager();
+            // manager = new PatternManager(); // may not be allowed to work
+        }
+        return manager;
+    }
+    
+    /**
+     * With the constructor private this will return this object and
+     * will ensure that there will only ever be one instance of
+     * PatternManager, if this class has not been instantiated it will
+     * be when this method is called.
+     * 
+     * @return This
+     */
+    public static PatternManager getInstance(int threadCount) {
+        if (manager == null) {
+            // if already created for thread
+            manager = new PatternManager(threadCount);
         }
         return manager;
     }
@@ -109,4 +126,11 @@ public class PatternManager {
         return locks[threadNum] == false;
     }
 
+    /**
+     * This method is used to set the locks all to false
+     */
+    public void resetLocks(){
+        locks = new boolean[locks.length];
+    }
+    
 }
