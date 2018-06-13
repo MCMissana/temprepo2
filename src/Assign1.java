@@ -8,7 +8,9 @@ public class Assign1 {
     private BufferedWriter writer;
         
     public static void main(String args[]) {
+        // file to read from
         File file = new File("test.txt");
+        // file to write from, may change
         File log = new File("log.txt");
         // create a stream that will be reading from a file
         FileInputStream input;
