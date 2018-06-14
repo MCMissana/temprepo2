@@ -95,7 +95,8 @@ public class PatternThread extends Thread {
             temp.add(this.term()); // adds to total and increments count
             // checks if this is the last thread to execute, using the count
             if(temp.count() >= temp.limit){
-                System.out.println(temp.result());
+                System.out.println("Thread Count: " + 
+                    PatternManager.limit +" | " + temp.result());
             }
         }
         temp = null; // dispose later by java
