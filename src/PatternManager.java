@@ -7,6 +7,7 @@ public class PatternManager {
 
     public static int limit;
     private static PatternManager manager;
+    private BufferedWriter writer;
     
     File result;
     File log;
@@ -19,6 +20,13 @@ public class PatternManager {
         // instantiate arrays and count
         result = new File("output.txt");
         log = file;
+        try{
+            FileOutputStream output = new FileOutputStream(log);
+            writer = new BufferedWriter(new OutputStreamWriter(output));
+        }catch(FileNotFoundException ex){
+            //nothing, need to be careful if cannot be found
+        }
+        
         limit = threadCount;
         locks = new boolean[limit]; // default value is false
         terms = new double[limit]; // default value is 0

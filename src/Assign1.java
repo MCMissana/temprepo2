@@ -7,8 +7,6 @@ import java.io.*;
  */
 public class Assign1 {
 
-    private BufferedWriter writer;
-
     public static void main(String args[]) {
         // file to read from
         File file = new File("C:/testdata.txt"); // src dirctory not working
