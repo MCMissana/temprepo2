@@ -7,8 +7,8 @@ public class PatternManager {
 
     public static int limit;
     private static PatternManager manager;
-    private BufferedWriter writer;
-    private BufferedWriter writerResult;
+    private FileWriter writer;
+    private FileWriter writerResult;
     
     File result;
     File log;
@@ -22,11 +22,10 @@ public class PatternManager {
         result = new File("/Users/michaelmissana/desktop/output.txt");
         log = file;
         try{
-            FileOutputStream output = new FileOutputStream(log);
-            writer = new BufferedWriter(new OutputStreamWriter(output));
+
+            writer = new FileWriter(log);
             
-            FileOutputStream output2 = new FileOutputStream(result);
-            writerResult = new BufferedWriter(new OutputStreamWriter(output2));
+            writerResult = new FileWriter(result);
 
         }catch(IOException ex){
             //nothing, need to be careful if cannot be found

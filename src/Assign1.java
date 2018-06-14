@@ -15,10 +15,8 @@ public class Assign1 {
 
         int currentChar;
         try {
-            // create a stream that will be reading from a file
-            // stream is for StreamReader and made efficient with a BufferedReader
-            FileInputStream input = new FileInputStream(file);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(input));
+            
+            FileReader reader = new FileReader(file);
             int threadCount = 0;
             String parameter = ""; // builds the thread count read from file
             while ((currentChar = reader.read()) != -1) {
