@@ -1,3 +1,4 @@
+import java.io.*;
 /**
  *
  * @author Ethan Palser, Mathew Erwin, Michael Missana
@@ -18,6 +19,10 @@ public class PatternManager {
         locks = new boolean[limit]; // default value is false
         terms = new double[limit]; // default value is 0
         count = 0;
+
+        //outputs for log and final values
+        PrintWriter log = new PrintWriter("log.txt","UTF-8");
+        PrintWriter finalOutput = new PrintWriter("final.txt","UTF-8");
     }
 
     /**
@@ -44,6 +49,9 @@ public class PatternManager {
      * @return This
      */
     public static PatternManager getInstance(int threadCount) {
+        log.println("New Batch using Parameters: "+ threadCount);
+        finalOutput.print("New Batch using Parameters: "+ threadCount+". Gives final value of ");
+
         if (manager == null) {
             // if already created for thread
             manager = new PatternManager(threadCount);
@@ -60,6 +68,7 @@ public class PatternManager {
     public void add(double termVal) {
         esta += termVal;
         count++;
+        log.println("term value =" + termVal +" ");
     }
 
     /**
@@ -69,6 +78,7 @@ public class PatternManager {
      */
     public double result() {
         return esta;
+        finalOutput.println(esta);
     }
 
     /**
