@@ -50,8 +50,8 @@ public class PatternManager {
      * 
      * @return This
      */
-    public static PatternManager setInstance(int limit, File log){
-        manager = new PatternManager(limit, log);
+    public static PatternManager setInstance(int threadCount, File log){
+        manager = new PatternManager(threadCount, log);
         return manager;
     }
 

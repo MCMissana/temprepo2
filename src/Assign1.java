@@ -9,27 +9,32 @@ public class Assign1 {
         
     public static void main(String args[]) {
         // file to read from
-        File file = new File("test.txt");
+        File file = new File("testdata.txt");
         // file to write from, may change
         File log = new File("log.txt");
         // create a stream that will be reading from a file
-        FileInputStream input;
+        FileInputStream input = null;
         try{
             input = new FileInputStream(file);
         }catch(FileNotFoundException ex){
-            input = null;
+            System.out.println(ex);
         }
         // stream is for StreamReader and made efficient with a BufferedReader
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
        
         // main loop starts here
-        
-        int threadCount;
+        String line;
         try{
-            threadCount = Integer.valueOf(reader.readLine());
+            line = reader.readLine();
         }catch(IOException ex){
-            threadCount = 0;
+            line = String.valueOf((char)-1);
         }
+        
+        while(line.charAt(0) != -1){
+            System.out.println("Hello");
+        }
+        
+        int threadCount = Integer.valueOf(line);
         PatternManager.setInstance(threadCount, log);
         
         
