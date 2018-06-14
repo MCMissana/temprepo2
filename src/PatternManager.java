@@ -8,6 +8,7 @@ public class PatternManager {
     public static int limit;
     private static PatternManager manager;
     private BufferedWriter writer;
+    private BufferedWriter writerResult;
     
     File result;
     File log;
@@ -18,12 +19,16 @@ public class PatternManager {
 
     private PatternManager(int threadCount, File file) {
         // instantiate arrays and count
-        result = new File("output.txt");
+        result = new File("/Users/michaelmissana/desktop/output.txt");
         log = file;
         try{
             FileOutputStream output = new FileOutputStream(log);
             writer = new BufferedWriter(new OutputStreamWriter(output));
-        }catch(FileNotFoundException ex){
+            
+            FileOutputStream output2 = new FileOutputStream(result);
+            writerResult = new BufferedWriter(new OutputStreamWriter(output2));
+
+        }catch(IOException ex){
             //nothing, need to be careful if cannot be found
         }
         
@@ -58,8 +63,11 @@ public class PatternManager {
      * 
      * @return This
      */
-    public static PatternManager setInstance(int threadCount, File log){
-        manager = new PatternManager(threadCount, log);
+    public static PatternManager setInstance(int threadCount, File logfile){
+        if (manager == null) {
+            manager = new PatternManager(threadCount, logfile);
+        }
+        limit = threadCount;
         return manager;
     }
 
@@ -141,8 +149,47 @@ public class PatternManager {
     /**
      * This method is used to set the locks all to false
      */
-    public void resetLocks(){
-        locks = new boolean[locks.length];
+    public void reset(){
+        locks = new boolean[limit]; // default value is false
+        terms = new double[limit]; // default value is 0
+        count =0;
+        esta=0;
+    }
+        
+    /**
+     * output method for result
+     */
+    public void printResult(){
+        try{
+            
+            writerResult.write("Thread Count: " + limit +" | " + this.result()+'\n');
+        }catch(IOException ex){
+            //nothing, need to be careful if cannot be found
+        }
+        
+    }
+    
+    public void close(){
+        try{
+            writerResult.close();
+            writer.close();
+        }catch(IOException ex){
+            //nothing, need to be careful if cannot be found
+        }
+    }
+    
+    /**
+     * output method for log
+     */
+    public void printLog(double threadVal){
+        try{
+            
+            writer.write("Thread Count: " + limit +" | current esta: " + this.result()+
+            " | current thread value: "+ threadVal + '\n');
+        }catch(IOException ex){
+            //nothing, need to be careful if cannot be found
+        }
+        
     }
     
 }

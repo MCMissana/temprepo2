@@ -9,9 +9,9 @@ public class Assign1 {
 
     public static void main(String args[]) {
         // file to read from
-        File file = new File("C:/testdata.txt"); // src dirctory not working
+        File file = new File("/Users/michaelmissana/desktop/testdata.txt"); // src dirctory not working
         // file to write from, may change
-        File log = new File("logdata.txt");
+        File log = new File("/Users/michaelmissana/desktop/logdata.txt");
 
         int currentChar;
         try {
@@ -26,7 +26,8 @@ public class Assign1 {
                 if (currentChar == (char) '\n') {
                     threadCount = Integer.valueOf(parameter);
                     // setup/initialize PatternManager
-                    PatternManager.setInstance(threadCount, log);
+                    PatternManager temp = PatternManager.setInstance(threadCount, log);
+                    temp.reset();
                     PatternThread[] threadArr = new PatternThread[PatternManager.limit];
                     // populate terms with 0 and create each thread without starting them
                     for (int i = 0; i < PatternManager.limit; i++) {
@@ -51,5 +52,6 @@ public class Assign1 {
         } catch (IOException | NumberFormatException ex) {
             System.out.println("Exception" + ex);
         }
+        PatternManager.getInstance().close();
     }
 }
