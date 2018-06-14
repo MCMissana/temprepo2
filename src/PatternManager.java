@@ -83,6 +83,9 @@ public class PatternManager {
      */
     public double result() {
         finalOutput.println(esta);
+        System.out.println("abs");
+        finalOutput.close();
+        log.close();
         return esta;  
     }
 

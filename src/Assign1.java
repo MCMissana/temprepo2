@@ -17,7 +17,7 @@ public class Assign1 {
         for (int i = 0; i < PatternManager.limit; i++) {
             threadArr[i] = new PatternThread(i);
         }
-
+      //  System.out.println("abc");
         int currentChar; 
         //PrintWriter writer = new PrintWriter("H:\\test.txt","UTF-8");
         try {
