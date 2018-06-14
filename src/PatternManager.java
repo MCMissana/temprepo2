@@ -12,6 +12,8 @@ public class PatternManager {
     double[] terms; // contains term of thread
     double esta = 0; // total
     int count; // increments when thread adds term
+    public static PrintWriter log;
+    public static PrintWriter finalOutput;
 
     private PatternManager(int threadCount) {
         // instantiate arrays and count
@@ -21,8 +23,11 @@ public class PatternManager {
         count = 0;
 
         //outputs for log and final values
-        PrintWriter log = new PrintWriter("log.txt","UTF-8");
-        PrintWriter finalOutput = new PrintWriter("final.txt","UTF-8");
+        try {
+        PrintWriter log = new PrintWriter("H:\\log.txt","UTF-8");
+        PrintWriter finalOutput = new PrintWriter("H:\\final.txt","UTF-8");
+        } catch(Exception exc) {
+        }
     }
 
     /**
@@ -77,8 +82,8 @@ public class PatternManager {
      * @return 
      */
     public double result() {
-        return esta;
         finalOutput.println(esta);
+        return esta;  
     }
 
     /**
