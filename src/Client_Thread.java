@@ -92,13 +92,11 @@ public class Client_Thread extends Thread {
         if (temp.isUnlock(prev) || temp.isUnlock(threadNum)) {
             temp.lock(prev);
             temp.lock(termNum);
-            temp.add(this.term()); // adds to total and increments count
-            temp.printLog(aprox);
+            // sends term value to thread manager to send to server
+            temp.sendMessage(this.term());
             // checks if this is the last thread to execute, using the count
             if(temp.count() >= temp.limit){
-                System.out.println("Thread Count: " + 
-                    Client_ThreadManager.limit +" | " + temp.result());
-                temp.printResult();
+                System.out.println("Final thread of batch completed");
             }
         }
         temp = null; // dispose later by java
