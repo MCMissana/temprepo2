@@ -63,7 +63,7 @@ public class Client_ThreadManager {
      * This method listens for a message from the server for it to use.
      */
     public void receiveMessage(){
-        // do something with byte stream sent
+        // do something with byte stream sent, change void to an actual type
         byte[] message;
     }
     

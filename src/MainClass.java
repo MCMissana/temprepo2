@@ -58,6 +58,6 @@ public class MainClass {
         } catch (IOException | NumberFormatException ex) {
             System.out.println("Exception" + ex);
         }
-        skynet.close();
+        skynet.close(); // closes writers in server
     }
 }
