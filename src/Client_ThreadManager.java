@@ -3,10 +3,10 @@ import java.io.*;
  *
  * @author Ethan Palser, Mathew Erwin, Michael Missana
  */
-public class PatternManager {
+public class Client_ThreadManager {
 
     public static int limit;
-    private static PatternManager manager;
+    private static Client_ThreadManager manager;
     private BufferedWriter writer;
     private BufferedWriter writerResult;
     
@@ -17,7 +17,7 @@ public class PatternManager {
     double esta = 0; // total
     int count; // increments when thread adds term
 
-    private PatternManager(int threadCount, File file) {
+    private Client_ThreadManager(int threadCount, File file) {
         // instantiate arrays and count
         result = new File("./src/output.txt");
         log = file;
@@ -40,32 +40,32 @@ public class PatternManager {
 
     /**
      * With the constructor private this will return this object and
-     * will ensure that there will only ever be one instance of
-     * PatternManager, if this class has not been instantiated it will
-     * be when this method is called.
+ will ensure that there will only ever be one instance of
+ Client_ThreadManager, if this class has not been instantiated it will
+ be when this method is called.
      * 
      * @return This
      */
-    public static PatternManager getInstance() {
+    public static Client_ThreadManager getInstance() {
         if (manager == null) {
-            // manager = new PatternManager(limit, file); // may not be allowed to work
+            // manager = new Client_ThreadManager(limit, file); // may not be allowed to work
         }
         return manager;
     }
     
     /**
      * With the constructor private this will return this object and
-     * will ensure that there will only ever be one instance of
-     * PatternManager, if this class has not been instantiated it will
-     * be when this method is called.&nbspThis has been altered to act
+ will ensure that there will only ever be one instance of
+ Client_ThreadManager, if this class has not been instantiated it will
+ be when this method is called.&nbspThis has been altered to act
      * like the constructor of the class without allowing multiple
      * instances of the manager to exist.
      * 
      * @return This
      */
-    public static PatternManager setInstance(int threadCount, File logfile){
+    public static Client_ThreadManager setInstance(int threadCount, File logfile){
         if (manager == null) {
-            manager = new PatternManager(threadCount, logfile);
+            manager = new Client_ThreadManager(threadCount, logfile);
         }
         limit = threadCount;
         return manager;

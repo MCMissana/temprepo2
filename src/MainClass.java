@@ -5,7 +5,7 @@ import java.io.*;
  *
  * @author Ethan Palser, Mathew Erwin, Michael Missana
  */
-public class Assign1 {
+public class MainClass {
 
     public static void main(String args[]) {
         // file to read from
@@ -25,13 +25,13 @@ public class Assign1 {
                 //if new line character we have our limit parameter
                 if (currentChar == (char) '\n') {
                     threadCount = Integer.valueOf(parameter);
-                    // setup/initialize PatternManager
-                    PatternManager temp = PatternManager.setInstance(threadCount, log);
+                    // setup/initialize Client_ThreadManager
+                    Client_ThreadManager temp = Client_ThreadManager.setInstance(threadCount, log);
                     temp.reset();
-                    PatternThread[] threadArr = new PatternThread[PatternManager.limit];
+                    Client_Thread[] threadArr = new Client_Thread[Client_ThreadManager.limit];
                     // populate terms with 0 and create each thread without starting them
-                    for (int i = 0; i < PatternManager.limit; i++) {
-                        threadArr[i] = new PatternThread(i);
+                    for (int i = 0; i < Client_ThreadManager.limit; i++) {
+                        threadArr[i] = new Client_Thread(i);
                     }
                     //start all threads for for our given limit
                     for (int i = 0; i < threadCount; i++) {
@@ -54,6 +54,6 @@ public class Assign1 {
         } catch (IOException | NumberFormatException ex) {
             System.out.println("Exception" + ex);
         }
-        PatternManager.getInstance().close();
+        Client_ThreadManager.getInstance().close();
     }
 }
