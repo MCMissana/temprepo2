@@ -19,7 +19,7 @@ public class PatternManager {
 
     private PatternManager(int threadCount, File file) {
         // instantiate arrays and count
-        result = new File("/Users/michaelmissana/desktop/output.txt");
+        result = new File("./src/output.txt");
         log = file;
         try{
             FileOutputStream output = new FileOutputStream(log);

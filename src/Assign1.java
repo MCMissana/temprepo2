@@ -9,9 +9,9 @@ public class Assign1 {
 
     public static void main(String args[]) {
         // file to read from
-        File file = new File("/Users/michaelmissana/desktop/testdata.txt"); // src dirctory not working
+        File file = new File("./src/testdata.txt"); // src dirctory not working
         // file to write from, may change
-        File log = new File("/Users/michaelmissana/desktop/logdata.txt");
+        File log = new File("./src/logdata.txt");
 
         int currentChar;
         try {
@@ -36,6 +36,8 @@ public class Assign1 {
                     //start all threads for for our given limit
                     for (int i = 0; i < threadCount; i++) {
                         threadArr[i].start(); // starts thread which runs parallel to other threads
+                    }
+                    for (int i = 0; i < threadCount; i++) {
                         try {
                             threadArr[i].join(); // ensures all these threads must complete
                         } catch (InterruptedException ex) {
