@@ -1,12 +1,15 @@
 import java.io.*;
+import java.nio.*;
+import java.net.*; 
+import java.nio.channels.SocketChannel;
 /**
  *
  * @author Ethan Palser, Mathew Erwin, Michael Missana
  */
-public class PatternManager {
+public class ServerThreadManager {
 
     public static int limit;
-    private static PatternManager manager;
+    private static ServerThreadManager manager;
     private BufferedWriter writer;
     private BufferedWriter writerResult;
     
@@ -17,7 +20,7 @@ public class PatternManager {
     double esta = 0; // total
     int count; // increments when thread adds term
 
-    private PatternManager(int threadCount, File file) {
+    private ServerThreadManager(int threadCount, File file) {
         // instantiate arrays and count
         result = new File("/Users/michaelmissana/desktop/output.txt");
         log = file;
@@ -36,6 +39,15 @@ public class PatternManager {
         locks = new boolean[limit]; // default value is false
         terms = new double[limit]; // default value is 0
         count = 0;
+        
+        //server
+        try{
+            SocketChannel socketChannel = SocketChannel.open();
+            socketChannel.connect(new InetSocketAddress("localhost", 4380)); 
+            System.out.println("Server: "+socketChannel);
+        }catch(Exception e){}
+        
+        
     }
 
     /**
@@ -46,7 +58,7 @@ public class PatternManager {
      * 
      * @return This
      */
-    public static PatternManager getInstance() {
+    public static ServerThreadManager getInstance() {
         if (manager == null) {
             // manager = new PatternManager(limit, file); // may not be allowed to work
         }
@@ -63,9 +75,9 @@ public class PatternManager {
      * 
      * @return This
      */
-    public static PatternManager setInstance(int threadCount, File logfile){
+    public static ServerThreadManager setInstance(int threadCount, File logfile){
         if (manager == null) {
-            manager = new PatternManager(threadCount, logfile);
+            manager = new ServerThreadManager(threadCount, logfile);
         }
         limit = threadCount;
         return manager;

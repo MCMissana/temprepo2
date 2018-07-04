@@ -1,3 +1,7 @@
+import java.io.*; 
+import java.nio.*; 
+import java.net.*;  
+import java.nio.channels.SocketChannel;
 /**
  * This class extends PatternThread to be an object which can run as its own
  * thread,&nbsp however, using extends prevents the object from subclassing
@@ -5,14 +9,28 @@
  *
  * @author Ethan Palser, Mathew Erwin, Michael Missana
  */
-public class PatternThread extends Thread {
+public class ClientThread extends Thread {
 
     public int threadNum;
     public double aprox;
     public boolean interested; // locally stored check for locking other threads, may not use
+    SocketChannel socketChannel;
 
-    public PatternThread(int termNum) {
+    public ClientThread(int termNum) {
         threadNum = termNum;
+        
+        //client
+        try{
+            SocketChannel socketChannel = SocketChannel.open();
+            socketChannel.configureBlocking(false);
+            socketChannel.connect(new InetSocketAddress("localhost", 4380));
+            //System.out.println("client: "+socketChannel);
+
+            while(! socketChannel.finishConnect() ){
+                    //wait, or do something else...    
+            }
+            //System.out.println("client: "+socketChannel);
+        } catch(Exception e){}
     }
 
     /**
@@ -73,7 +91,7 @@ public class PatternThread extends Thread {
         int prev;
         prev = threadNum - 1;
         if (threadNum == 0) {
-            prev = PatternManager.limit - 1;
+            prev = ServerThreadManager.limit - 1;
         }
         return prev;
     }
@@ -88,7 +106,7 @@ public class PatternThread extends Thread {
      */
     private synchronized void enter_region(int termNum) {
         int prev = this.prevThread();
-        PatternManager temp = PatternManager.getInstance();
+        ServerThreadManager temp = ServerThreadManager.getInstance();
         if (temp.isUnlock(prev) || temp.isUnlock(threadNum)) {
             temp.lock(prev);
             temp.lock(termNum);
@@ -97,8 +115,36 @@ public class PatternThread extends Thread {
             // checks if this is the last thread to execute, using the count
             if(temp.count() >= temp.limit){
                 System.out.println("Thread Count: " + 
-                    PatternManager.limit +" | " + temp.result());
+                    ServerThreadManager.limit +" | " + temp.result());
                 temp.printResult();
+               
+                
+                //server stuff
+                try{
+                    socketChannel = SocketChannel.open();
+                    socketChannel.configureBlocking(false);
+                    socketChannel.connect(new InetSocketAddress("localhost", 4380));
+                    
+                    
+                    String newData = "New String to write to file..." + System.currentTimeMillis();
+
+                    ByteBuffer buf = ByteBuffer.allocate(48);
+                    buf.clear();
+                    String term = String.valueOf(this.term());
+                    buf = buf.put(term.getBytes("UTF-8"));
+                    
+                    buf.flip();
+                    System.out.println("before write "+socketChannel);
+                    //while(buf.hasRemaining()) {
+                        socketChannel.write(buf);
+                    //}
+                    System.out.println(buf);
+                    System.out.println("print?");
+                }catch(Exception e){}
+                
+                
+                
+                
             }
         }
         temp = null; // dispose later by java
@@ -112,7 +158,7 @@ public class PatternThread extends Thread {
      */
     private synchronized void leave_region(int termNum) {
         int prev = this.prevThread();
-        PatternManager temp = PatternManager.getInstance();
+        ServerThreadManager temp = ServerThreadManager.getInstance();
         
         /**
          * aprox check is for if it has been modified and needs to unlock

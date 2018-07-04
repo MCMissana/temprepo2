@@ -1,11 +1,12 @@
 
 import java.io.*;
+import java.net.*; 
 
 /**
  *
  * @author Ethan Palser, Mathew Erwin, Michael Missana
  */
-public class Assign1 {
+public class GroupProjectMain {
 
     public static void main(String args[]) {
         // file to read from
@@ -26,22 +27,23 @@ public class Assign1 {
                 if (currentChar == (char) '\n') {
                     threadCount = Integer.valueOf(parameter);
                     // setup/initialize PatternManager
-                    PatternManager temp = PatternManager.setInstance(threadCount, log);
+                    ServerThreadManager temp = ServerThreadManager.setInstance(threadCount, log);
                     temp.reset();
-                    PatternThread[] threadArr = new PatternThread[PatternManager.limit];
+                    ClientThread[] threadArr = new ClientThread[ServerThreadManager.limit];
                     // populate terms with 0 and create each thread without starting them
-                    for (int i = 0; i < PatternManager.limit; i++) {
-                        threadArr[i] = new PatternThread(i);
+                    for (int i = 0; i < ServerThreadManager.limit; i++) {
+                        threadArr[i] = new ClientThread(i);
                     }
                     //start all threads for for our given limit
                     for (int i = 0; i < threadCount; i++) {
                         threadArr[i].start(); // starts thread which runs parallel to other threads
+                    }
+                    for (int i = 0; i < threadCount; i++) {
                         try {
                             threadArr[i].join(); // ensures all these threads must complete
-                        } catch (InterruptedException ex) {
-                        }
+                            } catch (InterruptedException ex) {
+                            }
                     }
-
                     parameter = ""; //reset our parameter
                 } else {
                     if ((char) currentChar != (char) 13) {
@@ -52,6 +54,6 @@ public class Assign1 {
         } catch (IOException | NumberFormatException ex) {
             System.out.println("Exception" + ex);
         }
-        PatternManager.getInstance().close();
+        ServerThreadManager.getInstance().close();
     }
 }
